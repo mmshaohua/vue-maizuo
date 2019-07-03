@@ -6,14 +6,15 @@ export default {
     cinemaList: []
   },
   actions: {
-    actionsCinemaList ({ commit }) {
+    actionsCinemaList ({ commit, rootState }) {
+      let curCityId = rootState.city.curCityId
       axios.get('https://m.maizuo.com/gateway', {
         headers: {
           'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15607381007864085119169"}',
           'X-Host': 'mall.film-ticket.cinema.list'
         },
         params: {
-          'cityId': 440300,
+          'cityId': curCityId,
           'ticketFlag': 1,
           'k': 9069556
         }

@@ -10,7 +10,9 @@ export default {
     }
   },
   actions: {
-    actionsBannerList ({ commit }) {
+    actionsBannerList ({ commit, rootState }) {
+      let curCityId = rootState.city.curCityId
+      // console.log(curCityId)
       axios.get('https://m.maizuo.com/gateway', {
         headers: {
           'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15607381007864085119169"}',
@@ -18,7 +20,7 @@ export default {
         },
         params: {
           'type': 2,
-          'cityId': 440300,
+          'cityId': curCityId,
           'k': 7939812
         }
       }).then(response => {

@@ -7,14 +7,15 @@ export default {
     movieComingList: []
   },
   actions: {
-    actionsMoviePaying ({ commit }) {
+    actionsMoviePaying ({ commit, rootState }) {
+      let curCityId = rootState.city.curCityId
       axios.get('https://m.maizuo.com/gateway', {
         headers: {
           'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15607381007864085119169"}',
           'X-Host': 'mall.film-ticket.film.list'
         },
         params: {
-          'cityId': 440300,
+          'cityId': curCityId,
           'pageNum': 1,
           'pageSize': 10,
           'type': 1,
@@ -30,14 +31,15 @@ export default {
         }
       })
     },
-    actionsMovieComing ({ commit }) {
+    actionsMovieComing ({ commit, rootState }) {
+      let curCityId = rootState.city.curCityId
       axios.get('https://m.maizuo.com/gateway', {
         headers: {
           'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15607381007864085119169"}',
           'X-Host': 'mall.film-ticket.film.list'
         },
         params: {
-          'cityId': 440300,
+          'cityId': curCityId,
           'pageNum': 1,
           'pageSize': 10,
           'type': 2,

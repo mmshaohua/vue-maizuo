@@ -1,7 +1,7 @@
 <template>
   <div class="navBar">
     <router-link :to="{name: 'city'}" class="navBar_left">
-      <span>深圳</span>
+      <span>{{ curCityInfo ? curCityInfo.name : '深圳' }}</span>
       <i class="iconfont iconarrow-down"></i>
     </router-link>
     <div class="navBar_center">
@@ -16,8 +16,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  computed: {
+    ...mapGetters({
+      'curCityInfo': 'city/curCityInfo'
+    })
+  }
 }
 </script>
 
