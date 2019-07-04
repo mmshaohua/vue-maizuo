@@ -17,10 +17,10 @@
           </div>
           <div class="movie_datails_pingfen">&nbsp;</div>
           <div class="movie_datails_star">
-            <span>主演：{{ actorForma(item.actors) }}</span>
+            <span>主演：{{ actorFormat(item.actors) }}</span>
           </div>
           <div class="movie_datails_time">
-            <span>{{ item.nation }} | {{ item.runtime }}分钟</span>
+            <span>上映日期：{{ item.premiereAt }}</span>
           </div>
         </div>
         <div class="movie_buy">预购</div>
@@ -40,13 +40,13 @@ export default {
     })
   },
   methods: {
+    actorFormat (actors = []) {
+      let tmp = actors.map(item => item.name)
+      return tmp.length ? tmp.join(' ') : '暂无主演'
+    },
     ...mapActions({
       actionsMovieComing: 'movie/actionsMovieComing'
-    }),
-    actorForma (actors) {
-      let tmp = actors.map(item => item.name)
-      return tmp.join(' ')
-    }
+    })
   },
   mounted () {
     this.actionsMovieComing()

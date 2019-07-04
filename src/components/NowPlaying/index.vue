@@ -1,35 +1,35 @@
 <template>
-  <div class="content">
-    <ul>
-      <router-link
-        tag="li"
-        v-for="item in movieNowList"
-        :key="item.filmId"
-        :to="'/movieDetails/' + item.filmId"
+    <div class="content">
+      <ul>
+        <router-link
+          tag="li"
+          v-for="item in movieNowList"
+          :key="item.filmId"
+          :to="'/movieDetails/' + item.filmId"
         >
-        <div class="movie_img">
-          <img :src="item.poster" alt />
-        </div>
-        <div class="movie_datails">
-          <div class="movie_datails_movieId">
-            <span class="name">{{ item.name }}</span>
-            <span class="item">{{ item.filmType.name }}</span>
+          <div class="movie_img">
+            <img :src="item.poster" alt />
           </div>
-          <div class="movie_datails_pingfen">
-            <span>观众评分</span>
-            <span class="number">{{ item.grade }}</span>
+          <div class="movie_datails">
+            <div class="movie_datails_movieId">
+              <span class="name">{{ item.name }}</span>
+              <span class="item">{{ item.filmType.name }}</span>
+            </div>
+            <div class="movie_datails_pingfen">
+              <span>{{ item.grade ? '观众评分 ' : '&nbsp;'}}</span>
+              <span class="number">{{ item.grade }}</span>
+            </div>
+            <div class="movie_datails_star">
+              <span>主演：{{ actorFormat(item.actors) }}</span>
+            </div>
+            <div class="movie_datails_time">
+              <span>{{ item.nation }} | {{ item.runtime }}分钟</span>
+            </div>
           </div>
-          <div class="movie_datails_star">
-            <span>主演：{{ actorForma(item.actors) }}</span>
-          </div>
-          <div class="movie_datails_time">
-            <span>{{ item.nation }} | {{ item.runtime }}分钟</span>
-          </div>
-        </div>
-        <div class="movie_buy">购票</div>
-      </router-link>
-    </ul>
-  </div>
+          <div class="movie_buy">购票</div>
+        </router-link>
+      </ul>
+    </div>
 </template>
 
 <script>
@@ -43,16 +43,16 @@ export default {
     })
   },
   methods: {
-    ...mapActions({
-      actionsMoviePaying: 'movie/actionsMoviePaying'
-    }),
-    actorForma (actors) {
+    actorFormat (actors = []) {
       let tmp = actors.map(item => item.name)
-      return tmp.join(' ')
-    }
+      return tmp.length ? tmp.join(' ') : '暂无主演'
+    },
+    ...mapActions({
+      actionsMovieNowList: 'movie/actionsMovieNowList'
+    })
   },
   mounted () {
-    this.actionsMoviePaying()
+    this.actionsMovieNowList()
   }
 }
 </script>
@@ -60,6 +60,7 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/styles/common/mixins.scss";
 .content {
+  padding-bottom: 49px;
   ul {
     list-style: none;
     padding: 0;

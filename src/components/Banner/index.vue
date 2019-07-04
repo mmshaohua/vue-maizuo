@@ -1,5 +1,5 @@
 <template>
-  <swiper class="mz-banner" :options="swiperOption">
+  <swiper class="mz-banner" :options="swiperOption" >
     <swiper-slide
       v-for="item in bannerList"
       :key="item.bannerId"
@@ -20,15 +20,17 @@ export default {
   data () {
     return {
       swiperOption: {
-        // loop: true, // 循环模式选项
         pagination: {
-          el: '.swiper-pagination'
+          el: '.swiper-pagination',
+          clickable: true
         },
         autoplay: {
           delay: 1000,
-          stopOnLastSlide: false,
           disableOnInteraction: false
-        }
+        },
+        speed: 400,
+        observer: true, // 修改swiper自己或子元素时，自动初始化swiper
+        observeParents: true // 修改swiper的父元素时，自动初始化swiper
       }
     }
   },

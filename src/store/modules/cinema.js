@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Toast } from 'vant'
 
 export default {
   namespaced: true,
@@ -7,6 +8,7 @@ export default {
   },
   actions: {
     actionsCinemaList ({ commit, rootState }) {
+      Toast.loading({ duration: 0, mask: true, message: '加载中...' })
       let curCityId = rootState.city.curCityId
       axios.get('https://m.maizuo.com/gateway', {
         headers: {
@@ -19,6 +21,7 @@ export default {
           'k': 9069556
         }
       }).then(response => {
+        Toast.clear()
         let res = response.data
         if (res.status === 0) {
           // console.log(res.data.cinemas)

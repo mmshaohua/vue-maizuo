@@ -73,7 +73,7 @@
           :key="item.cityId"
           @click="handleChangeCity(item)"
           >
-          {{ item.name }}  
+          {{ item.name }}
         </li>
       </ul>
 
@@ -89,16 +89,13 @@
 // import { mapState, mapActions, mapGetters } from 'vuex'
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'city',/* 
+  name: 'city', /*
   data () {
     return {
       searchVal: ''
     }
   }, */
   computed: {
-    /* ...mapState({
-      cities: state => state.city.cities
-    }), */
     ...mapGetters({
       cityList: 'city/cityList',
       hotCity: 'city/hotCity',
@@ -131,13 +128,15 @@ export default {
       /* 3 操作左侧滚动条的 scrollTop 属性 */
       box.scrollTop = toTopHeight
     },
-    handleChangeCity (city){
+    handleChangeCity (city) {
       /* 1. 点击获取当前点击城市的 ID ，并修改仓库中的相关数据 */
       this.$store.commit('city/mutationsChangeCity', city.cityId)
 
       /* 2. 编程式导航，返回上一页 */
       // this.$router.back()
       this.$router.go(-1)
+
+      this.$store.state.city.searchVal = ''
 
       /* 3. 本地存储 cityId */
       window.localStorage.setItem('curCityId', city.cityId)

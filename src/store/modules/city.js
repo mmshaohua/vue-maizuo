@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Toast } from 'vant'
 
 export default {
   namespaced: true,
@@ -67,18 +68,21 @@ export default {
   },
   actions: {
     actionsCityList ({ commit }) {
+      Toast.loading({ duration: 0, mask: true, message: '加载中...' })
       axios.get('https://m.maizuo.com/gateway?k=9828800', {
         headers: {
           'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15607381007864085119169"}',
           'X-Host': 'mall.film-ticket.city.list'
         }
       }).then(response => {
+        Toast.clear()
         let res = response.data
         // console.log(res)
         if (res.status === 0) {
           commit('mutationsCityList', {
             list: res.data.cities
           })
+          window.localStorage.setItem('cities', JSON.stringify(res.data.cities))
         }
       })
     }

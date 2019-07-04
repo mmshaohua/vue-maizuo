@@ -26,12 +26,12 @@ export default {
           title: '影院',
           icon: 'iconhuaban',
           path: '/cinema'
-        },
+        }, /*
         {
           title: '特惠',
           icon: 'icontehui',
           path: '/city'
-        },
+        }, */
         {
           title: '我的',
           icon: 'iconself',
