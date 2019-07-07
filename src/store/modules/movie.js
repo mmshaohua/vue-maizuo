@@ -4,19 +4,41 @@ import { Toast } from 'vant'
 export default {
   namespaced: true,
   state: {
-    movieNowList: JSON.parse(window.localStorage.getItem('movieNowList')) || [],
-    movieComingList: JSON.parse(window.localStorage.getItem('movieComingList')) || [],
+    // 正在热映列表
+    movieNowList: [],
+    // 即将上映列表
+    movieComingList: [],
+    // 影片加载状态
+    loading: false,
     // 页码
     pageNum: 1,
     // 每页显示条数
-    pageSize: 10
+    pageSize: 100,
+    // 总条数
+    total: 1
+  },
+  getters: {
+    // 总页数
+    totalPage (state) {
+      return Math.ceil(state.total / state.pageSize)
+    },
+    isFinished (state, getters) {
+      return state.pageNum > getters.totalPage
+    }
   },
   mutations: {
     mutationsMovieNowList (state, payload) {
       state.movieNowList = payload.movieNowList
+      state.total = payload.total
     },
     mutationsMovieComing (state, payload) {
       state.movieComingList = payload.movieComingList
+    },
+    mutationsLoding (state, payload) {
+      state.loading = payload.loading
+    },
+    muatationsChangePageNum (state, payload) {
+      state.pageNum = payload
     }
   },
   actions: {
@@ -35,18 +57,23 @@ export default {
           'k': 9154900
         }
       }).then(response => {
-        Toast.clear()
         let res = response.data
         if (res.status === 0) {
           // console.log(res.data.films)
           commit('mutationsMovieNowList', {
-            movieNowList: res.data.films
+            movieNowList: [...state.movieNowList, ...res.data.films],
+            total: res.data.total
           })
-          window.localStorage.setItem('movieNowList', JSON.stringify(res.data.films))
         }
+        commit('mutationsLoding', {
+          loading: false
+        })
+        commit('muatationsChangePageNum', (state.pageNum + 1))
+        // console.log(state.movieNowList)
+        Toast.clear()
       })
     },
-    actionsMovieComing ({ commit, state, rootState }) {
+    actionsMovieComing ({ commit, rootState }) {
       Toast.loading({ duration: 0, mask: true, message: '加载中...' })
       axios.get('https://m.maizuo.com/gateway', {
         headers: {
@@ -55,8 +82,8 @@ export default {
         },
         params: {
           'cityId': rootState.city.curCityId,
-          'pageNum': state.pageNum,
-          'pageSize': state.pageSize,
+          'pageNum': 1,
+          'pageSize': 100,
           'type': 2,
           'k': 9154900
         }

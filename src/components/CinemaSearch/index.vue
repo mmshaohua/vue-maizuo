@@ -35,7 +35,7 @@ export default {
       console.log('onCancel')
     },
     onCancel () {
-      this.$router.push({ name: 'cinema' })
+      this.$router.go(-1)
     }
   }
 }

@@ -1,7 +1,11 @@
 <template>
   <div class="mz-center">
     <div class="main">
-      <router-link tag="div" to="/login" class="avatar">
+      <div class="avatar" v-if="userInfo">
+        <img :src="userInfo.avatar" alt="">
+        <div class="login">{{ userInfo.nickname }}</div>
+      </div>
+      <router-link tag="div" to="/login" class="avatar" v-else>
         <img src="@/assets/img/avatar.png" alt="">
         <div class="login">立即登录</div>
       </router-link>
@@ -15,11 +19,11 @@
           <div>商品订单</div>
         </li>
       </ul>
-      <div class="card">
+      <router-link tag="div" to="/card" class="card">
         <i class="iconfont iconshezhi"></i>
         <span>卖座juan</span>
         <i class="iconfont iconarrow-small"></i>
-      </div>
+      </router-link>
       <div class="card">
         <i class="iconfont iconshezhi"></i>
         <span>组合红包</span>
@@ -35,13 +39,31 @@
         <span>设置</span>
         <i class="iconfont iconarrow-small"></i>
       </div>
+      <div class="card" @click="handleLogout">
+        <i class="iconfont iconshezhi"></i>
+        <span>退出登录</span>
+        <i class="iconfont iconarrow-small"></i>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'center'
+  name: 'center',
+
+  computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo
+    })
+  },
+
+  methods: {
+    ...mapActions({
+      handleLogout: 'user/actionsLogout'
+    })
+  }
 }
 </script>
 

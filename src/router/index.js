@@ -5,10 +5,11 @@ import movieDetails from './movieDetails'
 import city from './city'
 import movie from './movie'
 import cinema from './cinema'
+import store from '@/store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     // 主界面
@@ -38,8 +39,31 @@ export default new Router({
       component: () => import('@/views/login')
     },
     {
+      path: '/card',
+      name: 'card',
+      component: () => import('@/views/user/card'),
+      meta: {
+        // 判断是否需要登陆
+        isLogined: true
+      }
+    },
+    {
       path: '*',
       redirect: '/movie/nowPlaying'
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.isLogined && !store.state.user.userInfo) {
+    return next({
+      path: '/login',
+      query: {
+        redirect: to.fullPath
+      }
+    })
+  }
+  next()
+})
+
+export default router

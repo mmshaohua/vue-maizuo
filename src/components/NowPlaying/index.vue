@@ -1,4 +1,10 @@
 <template>
+  <van-list
+    v-model="loading"
+    :immediate-check="true"
+    @load="onLoad"
+    :finished="isFinished"
+    >
     <div class="content">
       <ul>
         <router-link
@@ -30,17 +36,31 @@
         </router-link>
       </ul>
     </div>
+  </van-list>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'NowPlaying',
   computed: {
     ...mapState({
       movieNowList: state => state.movie.movieNowList
-    })
+    }),
+    ...mapGetters({
+      isFinished: 'movie/isFinished'
+    }),
+    loading: {
+      get () {
+        return this.$store.state.movie.loading
+      },
+      set (value) {
+        this.$store.commit('movie/mutationsLoding', {
+          loading: value
+        })
+      }
+    }
   },
   methods: {
     actorFormat (actors = []) {
@@ -48,11 +68,8 @@ export default {
       return tmp.length ? tmp.join(' ') : '暂无主演'
     },
     ...mapActions({
-      actionsMovieNowList: 'movie/actionsMovieNowList'
+      onLoad: 'movie/actionsMovieNowList'
     })
-  },
-  mounted () {
-    this.actionsMovieNowList()
   }
 }
 </script>
@@ -60,13 +77,10 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/styles/common/mixins.scss";
 .content {
-  padding-bottom: 49px;
   ul {
     list-style: none;
     padding: 0;
-    margin-left: 15px;
-    margin-bottom: 0;
-    margin-top: 0;
+    margin-left:15px;
     li {
       @include border-bottom;
       height: 94px;

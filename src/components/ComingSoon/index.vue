@@ -20,7 +20,7 @@
             <span>主演：{{ actorFormat(item.actors) }}</span>
           </div>
           <div class="movie_datails_time">
-            <span>上映日期：{{ item.premiereAt }}</span>
+            <span>上映日期：周五 7月12日</span>
           </div>
         </div>
         <div class="movie_buy">预购</div>

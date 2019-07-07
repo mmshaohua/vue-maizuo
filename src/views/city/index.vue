@@ -86,15 +86,11 @@
 </template>
 
 <script>
-// import { mapState, mapActions, mapGetters } from 'vuex'
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
-  name: 'city', /*
-  data () {
-    return {
-      searchVal: ''
-    }
-  }, */
+  name: 'city',
+
   computed: {
     ...mapGetters({
       cityList: 'city/cityList',
@@ -103,6 +99,7 @@ export default {
       searchList: 'city/searchList',
       curCityInfo: 'city/curCityInfo'
     }),
+
     searchVal: {
       get () {
         return this.$store.state.city.searchVal
@@ -112,10 +109,12 @@ export default {
       }
     }
   },
+
   methods: {
     ...mapActions({
       actionsCityList: 'city/actionsCityList'
     }),
+
     handleGoTop (firstLetter) {
       /* 1 根据 firstLetter 找到左侧对应的 dom 元素 */
       let box = this.$refs.box
@@ -128,6 +127,7 @@ export default {
       /* 3 操作左侧滚动条的 scrollTop 属性 */
       box.scrollTop = toTopHeight
     },
+
     handleChangeCity (city) {
       /* 1. 点击获取当前点击城市的 ID ，并修改仓库中的相关数据 */
       this.$store.commit('city/mutationsChangeCity', city.cityId)
@@ -142,6 +142,7 @@ export default {
       window.localStorage.setItem('curCityId', city.cityId)
     }
   },
+
   created () {
     this.actionsCityList()
   }
@@ -156,9 +157,6 @@ export default {
   flex-direction: column;
   height: 100%;
   .header {
-    // position: fixed;
-    // top: 0;
-    // left: 0;
     position: relative;
     width: 100%;
     height: 44px;
