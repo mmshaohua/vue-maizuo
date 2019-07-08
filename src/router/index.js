@@ -10,7 +10,6 @@ import store from '@/store'
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
   routes: [
     // 主界面
     {
@@ -22,7 +21,7 @@ const router = new Router({
         center,
         {
           path: '',
-          redirect: '/movie/nowPlaying'
+          redirect: '/movie'
         }
       ]
     },
@@ -39,6 +38,11 @@ const router = new Router({
       component: () => import('@/views/login')
     },
     {
+      path: '/cinemaDetails',
+      name: 'cinemaDetails',
+      component: () => import('@/components/cinemaDetails')
+    },
+    {
       path: '/card',
       name: 'card',
       component: () => import('@/views/user/card'),
@@ -49,7 +53,7 @@ const router = new Router({
     },
     {
       path: '*',
-      redirect: '/movie/nowPlaying'
+      redirect: '/movie'
     }
   ]
 })

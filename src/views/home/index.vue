@@ -15,3 +15,10 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.mz-home {
+  height: 100%;
+  width: 100%;
+  // overflow-y: auto;
+}
+</style>

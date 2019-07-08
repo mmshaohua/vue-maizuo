@@ -25,7 +25,7 @@
     <div class="film_actors">
       <div class="actors_title">演职人员</div>
       <!-- 有一部电影是没有演员列表的 TODO -->
-      <ul class="actors_list" v-if="actorFlag">
+      <ul class="actors_list" v-if="item.actors">
         <li
           v-for="(actor, index) in item.actors"
           :key="index"
@@ -53,9 +53,6 @@ export default {
   computed: {
     ...mapState({
       item: state => state.details.movieDetails
-    }),
-    ...mapGetters({
-      actorFlag: 'details/actorFlag'
     })
   },
 

@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: "http://localhost:9090/avatar.jpg"
+    default: "http://129.204.100.67:9090/avatar.jpg"
   },
   roles: {
     type: Number,

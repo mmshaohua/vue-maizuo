@@ -19,7 +19,7 @@
         </ul>
       </div>
     </div>
-    <Cinema/>
+    <Cinema id="cinema"></Cinema>
   </div>
 </template>
 
@@ -39,7 +39,6 @@ export default {
   @import "~@/assets/styles/common/mixins.scss";
   .mz-cinema{
     height: 100%;
-    overflow: hidden;
     #cinema_content{
       width: 100%;
       height: 49px;
@@ -55,10 +54,10 @@ export default {
           display: flex;
           height: 100%;
           justify-content: space-between;
-          align-items: center;
           li{
             flex: 1;
             text-align: center;
+            height: 100%;
             span, i {
             font-size: 14px;
             color: #191a1b;

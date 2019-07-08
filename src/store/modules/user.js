@@ -21,14 +21,14 @@ export default {
   actions: {
     actionsLogin ({ commit }, payload) {
       Toast.loading({ duration: 0, message: '加载中...' })
-      axios.post('http://localhost:9090/sign-in', payload)
+      axios.post('http://129.204.100.67:9090/sign-in', payload)
         .then(response => {
           Toast.clear()
           let res = response.data
           if (res.code === 0) {
             Toast.success('登录成功')
             window.localStorage.setItem('userInfo', JSON.stringify(res.data))
-            console.log(111)
+            // console.log(111)
             commit('mutationsLogin', {
               userInfo: res.data
             })

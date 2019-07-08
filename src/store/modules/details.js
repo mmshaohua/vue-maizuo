@@ -8,16 +8,6 @@ export default {
     movieDetails: window.localStorage.getItem('movieDetails') ? window.localStorage.getItem('movieDetails') : ''
   },
 
-  getters: {
-    actorFlag (state) {
-      if (state.movieDetails.actors === undefined) {
-        return false
-      } else {
-        return true
-      }
-    }
-  },
-
   mutations: {
     mutationsMovieDetails (state, payload) {
       state.movieDetails = payload

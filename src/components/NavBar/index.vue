@@ -1,7 +1,7 @@
 <template>
   <div class="navBar">
     <router-link :to="{name: 'city'}" class="navBar_left">
-      <span>{{ curCityInfo && curCityInfo.name  }}</span>
+      <span>{{ curCityInfo ? curCityInfo.name : '深圳' }}</span>
       <i class="iconfont iconarrow-down"></i>
     </router-link>
     <div class="navBar_center">

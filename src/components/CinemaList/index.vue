@@ -2,7 +2,7 @@
   <div class="mz-cinemaList">
     <div class="content">
       <ul>
-        <router-link tag="li" to="" v-for="item in cinemaList" :key="item.cinemaId">
+        <router-link tag="li" to="/cinemaDetails" v-for="item in cinemaList" :key="item.cinemaId">
           <div class="cinemaList_left">
             <span class="name">{{ item.name }}</span>
             <span class="address">{{ item.address }}</span>
@@ -45,7 +45,6 @@ export default {
   .content {
     padding-bottom: 49px;
     margin-top: 95px;
-    z-index: 100;
     ul {
       list-style: none;
       li {
